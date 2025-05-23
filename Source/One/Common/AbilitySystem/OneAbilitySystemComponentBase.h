@@ -6,6 +6,9 @@
 #include "AbilitySystemComponent.h"
 #include "OneAbilitySystemComponentBase.generated.h"
 
+/*
+ * 自定义的AbilitySystemComponent
+ */
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ONE_API UOneAbilitySystemComponentBase : public UAbilitySystemComponent

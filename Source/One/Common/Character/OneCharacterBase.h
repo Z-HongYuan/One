@@ -11,7 +11,7 @@
 
 /**
  *抽象角色基类
- *派生类需要创建Create ASC和Attribute
+ *派生类需要自己创建Create ASC和Attribute
  */
 
 UCLASS(Abstract, Category="Character")
