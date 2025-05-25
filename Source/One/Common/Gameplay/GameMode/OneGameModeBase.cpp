@@ -2,3 +2,8 @@
 
 
 #include "OneGameModeBase.h"
+
+AOneGameModeBase::AOneGameModeBase()
+{
+	bUseSeamlessTravel = true;
+}

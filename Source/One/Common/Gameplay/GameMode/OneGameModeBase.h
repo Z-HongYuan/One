@@ -13,4 +13,7 @@ UCLASS()
 class ONE_API AOneGameModeBase : public AGameMode
 {
 	GENERATED_BODY()
+
+public:
+	AOneGameModeBase();
 };
