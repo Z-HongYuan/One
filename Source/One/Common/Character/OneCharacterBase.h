@@ -20,7 +20,7 @@ class ONE_API AOneCharacterBase : public ACharacter, public IAbilitySystemInterf
 	GENERATED_BODY()
 
 public:
-	AOneCharacterBase();
+	AOneCharacterBase(const class FObjectInitializer& ObjectInitializer);
 
 	virtual UOneAbilitySystemComponentBase* GetAbilitySystemComponent() const override
 	{

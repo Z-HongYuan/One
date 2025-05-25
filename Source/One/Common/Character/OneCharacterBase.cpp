@@ -2,9 +2,12 @@
 
 
 #include "OneCharacterBase.h"
+#include "One/Common/Gameplay/Component/OneCharacterMovementComponent.h"
 
 
-AOneCharacterBase::AOneCharacterBase()
+AOneCharacterBase::AOneCharacterBase(const class FObjectInitializer& ObjectInitializer):
+	Super(ObjectInitializer.SetDefaultSubobjectClass<UOneCharacterMovementComponent>(CharacterMovementComponentName))
+
 {
 	PrimaryActorTick.bCanEverTick = false;
 	bReplicates = true; //启动复制
