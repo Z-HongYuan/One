@@ -2,7 +2,6 @@
 
 
 #include "OneCharacterBase.h"
-#include "One/Common/Gameplay/Component/OneCharacterMovementComponent.h"
 
 
 AOneCharacterBase::AOneCharacterBase(const class FObjectInitializer& ObjectInitializer):
@@ -28,6 +27,57 @@ AOneCharacterBase::AOneCharacterBase(const class FObjectInitializer& ObjectIniti
 void AOneCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void AOneCharacterBase::InitAbilitySystemComponent()
+{
+	//父类中不做任何事情,将会在子类中实现
+}
+
+void AOneCharacterBase::InitAttributeSet() const
+{
+	if (GetAbilitySystemComponent() and StartupAttribute)
+	{
+		GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*GetAbilitySystemComponent()->MakeOutgoingSpec(
+			                                                             StartupAttribute,
+			                                                             -1,
+			                                                             GetAbilitySystemComponent()->MakeEffectContext()
+		                                                             ).Data.Get(), GetAbilitySystemComponent());
+	}
+}
+
+void AOneCharacterBase::InitStartAbilitiesAndEffects()
+{
+	//开始时的GE
+	for (TSubclassOf<UGameplayEffect>& Effect : StartupEffects)
+	{
+		if (!Effect) continue;
+		FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+		FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(Effect, -1, ContextHandle);
+		GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
+	}
+
+	//服务端Give
+	if (HasAuthority())
+	{
+		for (TSubclassOf<UGameplayAbility>& Ability : StartupAbilities)
+		{
+			if (!Ability) continue;
+			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(Ability, -1, -1, this);
+			GetAbilitySystemComponent()->GiveAbilityWithTag(AbilitySpec);
+		}
+	}
+
+	//服务端Give
+	if (HasAuthority())
+	{
+		for (TSubclassOf<UGameplayAbility>& Ability : StartupDoOnceAbilities)
+		{
+			if (!Ability) continue;
+			FGameplayAbilitySpec AbilitySpec(Ability, -1, -1, this);
+			GetAbilitySystemComponent()->GiveAbilityAndActivateOnce(AbilitySpec);
+		}
+	}
 }
 
 void AOneCharacterBase::Tick(float DeltaTime)
