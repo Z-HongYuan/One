@@ -13,7 +13,7 @@ public class One : ModuleRules
 			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", //基本引擎模块
 			"GameplayAbilities", "GameplayTags", "GameplayTasks", //用于游戏能力系统
 			"GameplayDebugger", //用于游戏调试
-			"GameplayCameras", //用于游戏相机
+			"GameplayCameras" //用于游戏相机
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });
