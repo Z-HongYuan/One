@@ -30,6 +30,8 @@ public:
 
 	//从输入调用触发技能的函数
 	UFUNCTION(BlueprintCallable, Category = "Gameplay Abilities")
+	void AbilityInputTagPressed(const FGameplayTag& InputTag);
+	UFUNCTION(BlueprintCallable, Category = "Gameplay Abilities")
 	void AbilityInputTagHeld(const FGameplayTag& InputTag);
 	UFUNCTION(BlueprintCallable, Category = "Gameplay Abilities")
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);

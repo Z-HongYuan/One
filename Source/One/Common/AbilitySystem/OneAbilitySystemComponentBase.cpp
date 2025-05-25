@@ -43,6 +43,22 @@ FGameplayAbilitySpecHandle UOneAbilitySystemComponentBase::K2_GiveAbilityWithTag
 	return GiveAbilityWithTag(AbilitySpec);
 }
 
+void UOneAbilitySystemComponentBase::AbilityInputTagPressed(const FGameplayTag& InputTag)
+{
+	if (!InputTag.IsValid())
+	{
+		return;
+	}
+	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities()) //循环查找并激活包含有对应InputTag的Ability
+	{
+		if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag))
+		{
+			AbilitySpecInputPressed(AbilitySpec); //通知Ability内的输入按下
+			TryActivateAbility(AbilitySpec.Handle); 
+		}
+	}
+}
+
 void UOneAbilitySystemComponentBase::AbilityInputTagHeld(const FGameplayTag& InputTag)
 {
 	if (!InputTag.IsValid())
@@ -55,9 +71,9 @@ void UOneAbilitySystemComponentBase::AbilityInputTagHeld(const FGameplayTag& Inp
 		if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag))
 		{
 			AbilitySpecInputPressed(AbilitySpec); //通知Ability内的输入按下
-			if (!AbilitySpec.IsActive())
+			if (!AbilitySpec.IsActive() and Cast<UOneGameplayAbilityBase>(AbilitySpec.Ability)->bCanHeld)
 			{
-				TryActivateAbility(AbilitySpec.Handle); //并且如果能力未被激活,就激活一次
+				TryActivateAbility(AbilitySpec.Handle); //并且如果能力未被激活且能每帧激活,就激活一次,避免每帧激活,例如能实时恢复的体力值
 			}
 		}
 	}
