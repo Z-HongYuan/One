@@ -14,6 +14,3 @@ class AOneGameMode : public AGameModeBase
 public:
 	AOneGameMode();
 };
-
-
-

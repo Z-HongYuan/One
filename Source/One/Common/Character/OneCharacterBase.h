@@ -22,27 +22,33 @@ class ONE_API AOneCharacterBase : public ACharacter, public IAbilitySystemInterf
 public:
 	AOneCharacterBase();
 
-	virtual UOneAbilitySystemComponentBase* GetAbilitySystemComponent()const override{return AbilitySystemComponent;}
-	
-	UOneAttributeSetBase* GetAttributeSet()const { return AttributeSet;}
-	
+	virtual UOneAbilitySystemComponentBase* GetAbilitySystemComponent() const override
+	{
+		return AbilitySystemComponent;
+	}
+
+	UOneAttributeSetBase* GetAttributeSet() const { return AttributeSet; }
+
 	//获取CoverMesh
 	UFUNCTION(BlueprintPure, Category="One")
-	USkeletalMeshComponent* GetCoverMesh()const {return CoverMesh;} 
+	USkeletalMeshComponent* GetCoverMesh() const { return CoverMesh; }
+
 protected:
 	/*--------------------拥有的组件-------------------------------------------*/
 
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category="Character")	//Copy的Character的Mesh
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category="Character")
+	//Copy的Character的Mesh
 	TObjectPtr<USkeletalMeshComponent> CoverMesh;
 	/*----------------------------------------------------------------------------------*/
-	
+
 	/*----------------------AbilitySystem相关--------------------------------*/
 	UPROPERTY()
 	TObjectPtr<UOneAbilitySystemComponentBase> AbilitySystemComponent;
 	UPROPERTY()
 	TObjectPtr<UOneAttributeSetBase> AttributeSet;
+
 public:
 	virtual void Tick(float DeltaTime) override;
 

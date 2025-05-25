@@ -21,7 +21,6 @@ void UOneAbilitySystemComponentBase::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
 }
 
 
@@ -33,4 +32,3 @@ void UOneAbilitySystemComponentBase::TickComponent(float DeltaTime, ELevelTick T
 
 	// ...
 }
-
