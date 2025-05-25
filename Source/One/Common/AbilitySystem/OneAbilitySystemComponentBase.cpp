@@ -45,16 +45,19 @@ FGameplayAbilitySpecHandle UOneAbilitySystemComponentBase::K2_GiveAbilityWithTag
 
 void UOneAbilitySystemComponentBase::AbilityInputTagHeld(const FGameplayTag& InputTag)
 {
-	if (!InputTag.IsValid()) return;
+	if (!InputTag.IsValid())
+	{
+		return;
+	}
 
-	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())	//循环查找并激活包含有对应InputTag的Ability
+	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities()) //循环查找并激活包含有对应InputTag的Ability
 	{
 		if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag))
 		{
-			AbilitySpecInputPressed(AbilitySpec);	//通知Ability内的输入按下
+			AbilitySpecInputPressed(AbilitySpec); //通知Ability内的输入按下
 			if (!AbilitySpec.IsActive())
 			{
-				TryActivateAbility(AbilitySpec.Handle);	//并且如果能力未被激活,就激活一次
+				TryActivateAbility(AbilitySpec.Handle); //并且如果能力未被激活,就激活一次
 			}
 		}
 	}
@@ -62,13 +65,16 @@ void UOneAbilitySystemComponentBase::AbilityInputTagHeld(const FGameplayTag& Inp
 
 void UOneAbilitySystemComponentBase::AbilityInputTagReleased(const FGameplayTag& InputTag)
 {
-	if (!InputTag.IsValid()) return;
+	if (!InputTag.IsValid())
+	{
+		return;
+	}
 
-	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())	//循环查找并激活包含有对应InputTag的Ability
+	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities()) //循环查找并激活包含有对应InputTag的Ability
 	{
 		if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag))
 		{
-			AbilitySpecInputReleased(AbilitySpec);	//通知Ability内的输入释放
+			AbilitySpecInputReleased(AbilitySpec); //通知Ability内的输入释放
 		}
 	}
 }
@@ -77,7 +83,6 @@ void UOneAbilitySystemComponentBase::AbilityInputTagReleased(const FGameplayTag&
 void UOneAbilitySystemComponentBase::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 
@@ -85,5 +90,4 @@ void UOneAbilitySystemComponentBase::TickComponent(float DeltaTime, ELevelTick T
                                                    FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
 }
