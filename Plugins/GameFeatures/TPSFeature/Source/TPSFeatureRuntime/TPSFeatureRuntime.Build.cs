@@ -26,6 +26,7 @@ public class TPSFeatureRuntime : ModuleRules
 			new string[]
 			{
 				"Core",
+				"One",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
